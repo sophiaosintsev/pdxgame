@@ -77,9 +77,18 @@ def choose_player():
     return player_type, player_name
 
 def move(tile, player):
+    check_hp()
     obstacle = randomizer(player)
     print "Guess what? You ran into " + obstacle + ". How Portland!"
     tile_change(tile)
+
+def check_hp():
+    if hp >= 150:
+        print "You are the ultimate Portlander and YOU WIN!"
+        quit()
+    elif hp <= 100:
+        print "Sorry, you lose. Go back to California."
+        quit()
 
 player_type, player_name = choose_player()
 
@@ -104,6 +113,7 @@ else:
 
 print "Hi, %s. Isn't it great to be a %s?" % (player_name, chosen_type) + " You are starting with " + str(player.hp) + " hipster points."
 
+hp = player.hp
 tile1 = Tile( {} )
 tile2 = Tile( {} )
 tile3 = Tile( {} )
@@ -115,10 +125,3 @@ tile3.exits = {"SE": tile2}
 tile4.exits = {"SW": tile3}
 tile5.exits = {"NW": tile4}
 move(tile1, player)
-
-if player.hp == 150:
-    print "You are the ultimate Portlander and YOU WIN!"
-    quit()
-elif player.hp == 80:
-    print "Sorry, you lose. Go back to California."
-    quit()
